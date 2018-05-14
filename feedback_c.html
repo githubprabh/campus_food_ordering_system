@@ -1,0 +1,27 @@
+<?php
+$server = "localhost";
+$user = "root";
+$pass = "";
+$dbname = "ead_project_sem_4";
+
+$conn = new mysqli($server,$user,$pass,$dbname);
+if (isset($_POST["s1"])){
+if($conn->connect_error){
+die("error " . $conn->connect_error);}
+$shopid = mysqli_real_escape_string($conn, $_POST['shopid']);
+$rating = mysqli_real_escape_string($conn, $_POST['rating']);
+
+$query = "INSERT INTO feedback(shopid, rating)VALUES('$shopid', '$rating')";
+
+/*
+$sql = "INSERT INTO feedback (shopid,rating) VALUES ('$shopid,'$rating')";    not working*/
+
+if($conn->query($query) === TRUE){
+	echo "success"; 
+}
+else{
+	echo "connection error or dupliacte entry not allowed !!!!\n" .$conn->error;
+}
+$conn->close();
+}
+?>
